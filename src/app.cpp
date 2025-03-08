@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+// test comment cho Tho:>
+
 void runApp()
 {
     int choose;

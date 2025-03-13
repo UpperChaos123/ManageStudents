@@ -1,0 +1,79 @@
+# ===============================
+# 1. Bỏ qua thư mục build và file biên dịch
+# ===============================
+/build/
+/cmake-build-debug/
+/cmake-build-release/
+*.o            # File đối tượng (object files)
+*.obj          # File object trên Windows
+*.exe          # File thực thi trên Windows
+*.out          # File thực thi trên Linux/macOS
+*.a            # Thư viện tĩnh (static library)
+*.so           # Thư viện động trên Linux (shared object)
+*.dll          # Thư viện động trên Windows
+*.dylib        # Thư viện động trên macOS
+*.lib          # Thư viện tĩnh trên Windows
+
+# Ninja build files
+.ninja_log
+.ninja_deps
+build.ninja
+rules.ninja
+
+# CMake cache và file tạm thời
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# ===============================
+# 2. Cấu hình của Visual Studio Code
+# ===============================
+.vscode/
+*.code-workspace
+
+# ===============================
+# 3. Tệp tạm thời và sao lưu
+# ===============================
+*.tmp          # File tạm thời
+*.bak          # File sao lưu
+*.swp          # File swap của Vim
+*~             # File backup
+*.log          # File log
+
+# ===============================
+# 4. Tệp và thư mục của hệ điều hành
+# ===============================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Linux
+*~              # File backup
+.Trash-*        # Thùng rác
+.nfs*           # File NFS tạm thời
+
+# ===============================
+# 5. Các tệp liên quan tới Git
+# ===============================
+*.orig          # File xung đột khi merge
+*.rej           # File reject khi patch
+
+# ===============================
+# 6. Thư viện bên ngoài
+# ===============================
+/build/libs/static/
+/build/libs/dynamic/
+
+# ===============================
+# 7. CMake output directories
+# ===============================
+/_debug/
+/_release/
+/relwithdebinfo/
+/minsizerel/

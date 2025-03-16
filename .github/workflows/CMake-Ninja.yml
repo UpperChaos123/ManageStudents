@@ -1,0 +1,65 @@
+name: ManageStudents CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # Kiểm tra mã nguồn
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      # Thiết lập MSYS2 và cài đặt các gói cần thiết
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          install: >
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-gtest
+          update: true
+
+      # Cập nhật PATH cho Ninja
+      - name: Update PATH for Ninja
+        run: echo "C:/msys64/mingw64/bin" >> $GITHUB_PATH
+
+      # Kiểm tra các công cụ đã được cài đặt
+      - name: Verify installed tools
+        run: |
+          gcc --version
+          cmake --version
+          ninja --version
+        shell: msys2 {0}
+
+      # Tạo thư mục build và chuyển vào đó
+      - name: Create build directory
+        run: mkdir build
+
+      # Cấu hình CMake với Ninja
+      - name: Configure CMake
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_C_COMPILER=gcc \
+            -DCMAKE_CXX_COMPILER=g++ \
+            -DGTest_DIR=C:/msys64/mingw64
+        shell: msys2 {0}
+
+      # Build dự án với Ninja
+      - name: Build with Ninja
+        run: cmake --build build
+        shell: msys2 {0}
+
+      # Chạy test nếu có (tùy chọn)
+      - name: Run tests
+        run: ctest --test-dir build
+        shell: msys2 {0}

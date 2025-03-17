@@ -11,8 +11,8 @@ bool checkIDOfStudents(std::string _ID);
 
 bool checkNameOfStudents(std::string _name);
 
-int checkIntegerInput(int &number);
+int checkNumberInput(int &number);
 
-float checkFloatInput(float &number);
+float checkNumberInput(float &number);
 
 #endif // __LIBRARY1_H__

@@ -61,7 +61,7 @@ bool checkNameOfStudents(std::string _name)
     return true;
 }
 
-int checkIntegerInput(int &number)
+int checkNumberInput(int &number)
 {
     while(!(std::cin >> number)){
         std::cerr << "Vui long nhap so nguyen: ";
@@ -72,7 +72,7 @@ int checkIntegerInput(int &number)
     return number;
 }
 
-float checkFloatInput(float &number)
+float checkNumberInput(float &number)
 {
     while(!(std::cin >> number)){
         std::cerr << "Vui long nhap so thuc: ";

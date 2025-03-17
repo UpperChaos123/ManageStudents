@@ -17,7 +17,7 @@ void runApp()
         std::cout << "6. Ket thuc chuong trinh" << std::endl;
         std::cout << "Lua chon: ";
 
-        choose = checkIntegerInput(choose);
+        choose = checkNumberInput(choose);
 
         std::cout << "\n";
 

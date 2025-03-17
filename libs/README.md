@@ -12,6 +12,4 @@
     1. Kiểm tra tên có để trống không
     2. Kiểm tra tên có kí tự đặc biệt không
 
-3. Hàm dùng để kiểm tra việc nhập số nguyên: checkIntegerInput
-
-4. Hàm dùng để kiểm tra việc nhập số thực: checkFloatInput
+3. Hàm dùng để kiểm tra việc nhập số: checkNumberInput

@@ -110,10 +110,10 @@ bool Student::inputInfo()
     std::getline(std::cin, _name);
 
     std::cout << "Nhap do tuoi: ";
-    int _age = checkIntegerInput(_age);
+    int _age = checkNumberInput(_age);
 
     std::cout << "Nhap diem trung binh: ";
-    float _GPA = checkFloatInput(_GPA);
+    float _GPA = checkNumberInput(_GPA);
 
     std::cout << "\n";
 

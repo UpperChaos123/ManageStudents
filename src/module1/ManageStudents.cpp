@@ -117,7 +117,7 @@ void findStudents(const std::vector<std::unique_ptr<Student>> &students)
         std::cout << "3. Quay lai" << std::endl;
         std::cout << "Lua chon: ";
 
-        choose = checkIntegerInput(choose);
+        choose = checkNumberInput(choose);
 
         std::cout << "\n";
         std::cin.ignore();
@@ -177,7 +177,7 @@ void updateGPAOfStudents(std::vector<std::unique_ptr<Student>> &students)
         float newGPA;
         std::cout << "Nhap diem trung binh moi: ";
 
-        newGPA = checkFloatInput(newGPA);
+        newGPA = checkNumberInput(newGPA);
 
         std::cout << "\n";
 

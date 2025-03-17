@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-// Test comment for the first time
-
 int main()
 {
     std::cout << "---Beginning---" << std::endl;

@@ -100,7 +100,7 @@ TEST(StudentContructor, ConstructorWithoutParameters_IncorrectResult1)
     EXPECT_EQ(st.getID(), "INVALID");
     EXPECT_EQ(st.getName(), "INVALID");
     EXPECT_EQ(st.getAge(), -1);
-    EXPECT_FLOAT_EQ(st.getGPA(), -1);
+    EXPECT_FLOAT_EQ(st.getGPA(), -1.0);
 }
 
 TEST(StudentContructor, ConstructorWithoutParameters_IncorrectResult2)
@@ -132,7 +132,7 @@ TEST(StudentContructor, ConstructorWithParameters_IncorrectResult1)
     EXPECT_EQ(st.getID(), "INVALID");
     EXPECT_EQ(st.getName(), "INVALID");
     EXPECT_EQ(st.getAge(), -1);
-    EXPECT_FLOAT_EQ(st.getGPA(), -1);
+    EXPECT_FLOAT_EQ(st.getGPA(), -1.0);
 }
 
 TEST(StudentContructor, ConstructorWithParameters_IncorrectResult2)

@@ -10,6 +10,7 @@ int main()
     runApp();
 
     std::cout << "---Ending---" << std::endl;
+    std::cout << "\n";
 
     return 0;
 }

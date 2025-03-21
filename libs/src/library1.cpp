@@ -31,8 +31,7 @@ bool checkIDOfStudents(std::string _ID)
         return false;
     }
 
-    std::string str = _ID.substr(2);
-    if (convertStringToNumber(str) < 1 || convertStringToNumber(str) > 999999)
+    if (convertStringToNumber(_ID.substr(2)) < 1 || convertStringToNumber(_ID.substr(2)) > 999999)
     {
         std::cerr << "So thu tu cua ma sinh vien phai bat dau tu 000001 den 999999" << std::endl;
         return false;

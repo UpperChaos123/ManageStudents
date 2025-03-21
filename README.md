@@ -32,3 +32,15 @@ C++ là một ngôn ngữ ***lập trình cấp trung***, hỗ trợ ***lập tr
     1. MyLibraryStatic (thư viện tĩnh)
     2. MyLibraryShared (thư viện động)
     3. GTest::gtest, GTest::gtest_main (thư viện của Google Test)
+
+## Chương 3: Khái quát về chương trình
+
+1. Các lớp chính
+    1. Student
+
+2. Các chức năng cơ bản
+    1. Thêm sinh viên vào danh sách
+    2. Hiển thị danh sách sinh viên
+    3. Xoá sinh viên theo ID
+    4. Tìm kiếm sinh viên theo ID hoặc tên
+    5. Cập nhật điểm trung bình của sinh viên

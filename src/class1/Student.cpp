@@ -12,7 +12,7 @@ Student::Student(std::string _ID, std::string _name, int _age, float _GPA)
         this->m_ID = "INVALID";
         this->m_name = "INVALID";
         this->m_age = -1;
-        this->m_GPA = -1;
+        this->m_GPA = -1.0;
 
         return;
     }
@@ -79,22 +79,22 @@ bool Student::setGPA(float _GPA)
     return true;
 }
 
-std::string Student::getID()
+std::string Student::getID() const
 {
     return this->m_ID;
 }
 
-std::string Student::getName()
+std::string Student::getName() const
 {
     return this->m_name;
 }
 
-int Student::getAge()
+int Student::getAge() const
 {
     return this->m_age;
 }
 
-float Student::getGPA()
+float Student::getGPA() const
 {
     return this->m_GPA;
 }
@@ -130,7 +130,7 @@ bool Student::inputInfo()
     return true;
 }
 
-void Student::outputInfo()
+void Student::outputInfo() const
 {
     std::cout << "Ma sinh vien: " << this->getID() << std::endl;
     std::cout << "Ten sinh vien: " << this->getName() << std::endl;

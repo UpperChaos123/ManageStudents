@@ -10,6 +10,7 @@ add_executable(unitTests
 # Link với Google Test
 target_link_libraries(unitTests PRIVATE GTest::gtest GTest::gtest_main pthread)
 
+# Thêm thư mục chứa file header của dự án chính
 target_include_directories(unitTests PRIVATE 
     ${CMAKE_SOURCE_DIR}/include
 )

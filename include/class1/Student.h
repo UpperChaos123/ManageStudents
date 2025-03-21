@@ -23,13 +23,13 @@ public:
     bool setAge(int _age);
     bool setGPA(float _GPA);
 
-    std::string getID();
-    std::string getName();
-    int getAge();
-    float getGPA();
+    std::string getID() const;
+    std::string getName() const;
+    int getAge() const;
+    float getGPA() const;
 
     bool inputInfo();
-    void outputInfo();
+    void outputInfo() const;
 
     bool updateGPA(float newGPA);
 };

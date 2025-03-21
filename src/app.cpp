@@ -9,6 +9,7 @@ void runApp()
     do
     {
         std::cout << "---Chuong trinh quan ly danh sach sinh vien---" << std::endl;
+
         std::cout << "1. Them sinh vien vao danh sach" << std::endl;
         std::cout << "2. Hien thi danh sach sinh vien" << std::endl;
         std::cout << "3. Xoa sinh vien theo ID" << std::endl;
@@ -20,7 +21,6 @@ void runApp()
         choose = checkNumberInput(choose);
 
         std::cout << "\n";
-
         std::cin.ignore();
 
         switch (choose)

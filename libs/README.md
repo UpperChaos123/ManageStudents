@@ -1,15 +1,17 @@
-# Thư viện dùng để kiểm tra tính hợp lệ của ID và tên sinh viên
+# Thư viện dùng để kiểm tra thông tin sinh viên
 
-## Tên thư viện: library1
+## Tên thư viện: MyLibraryStatic
 
-1. Hàm dùng để kiểm tra ID: checkIDOfStudents
-    1. Kiểm tra ID có để trống không
-    2. Kiểm tra ID có đúng 8 ký tự không
-    3. Kiểm tra ID có bắt đầu bằng "SV" không
-    4. Kiểm tra phần số thứ tự có trong khoảng từ 000001 đến 999999 không
+1. Hàm dùng để kiểm tra ID của sinh viên: checkIDOfStudents
+    1. ID không được để trống
+    2. ID phải có 8 ký tự
+        1. 2 ký tự đầu là "SV"
+        2. 6 ký tự sau là số thứ tự từ 000001 đến 999999
 
-2. Hàm dùng để kiểm tra tên: checkNameOfStudents
-    1. Kiểm tra tên có để trống không
-    2. Kiểm tra tên có kí tự đặc biệt không
+2. Hàm dùng để kiểm tra tên sinh viên: checkNameOfStudents
+    1. Tên không được để trống
+    2. Tên chỉ chứa chữ cái và khoảng trắng
 
 3. Hàm dùng để kiểm tra việc nhập số: checkNumberInput
+    1. Kiểm tra nhập số nguyên
+    2. Kiểm tra nhập số thực

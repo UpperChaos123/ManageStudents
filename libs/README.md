@@ -12,6 +12,8 @@
     1. Tên không được để trống
     2. Tên chỉ chứa chữ cái và khoảng trắng
 
-3. Hàm dùng để kiểm tra việc nhập số: checkNumberInput
+3. Hàm dùng để kiểm tra định dạng Email: checkEmailOfStudents
+
+4. Hàm dùng để kiểm tra việc nhập số: checkNumberInput
     1. Kiểm tra nhập số nguyên
     2. Kiểm tra nhập số thực

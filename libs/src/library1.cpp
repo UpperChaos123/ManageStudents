@@ -1,60 +1,42 @@
 #include "library1.h"
 
-#include <cctype>
-
-float convertStringToNumber(std::string str)
+bool checkIDOfStudents(std::string &_ID)
 {
-    std::stringstream ss;
-    ss << str;
-    float x = 0;
-    ss >> x;
-    return x;
-}
+    const std::regex pattern(R"(^SV[0-9]{6}$)");
 
-bool checkIDOfStudents(std::string _ID)
-{
-    if (_ID.empty())
+    if (!std::regex_match(_ID, pattern))
     {
-        std::cerr << "Ma sinh vien khong duoc de trong" << std::endl;
-        return false;
-    }
+        std::cerr << "ID gom 8 ky tu:" << std::endl;
+        std::cerr << "- 2 ky tu dau la SV" << std::endl;
+        std::cerr << "- 6 ky tu sau bat dau tu 000001 den 999999" << std::endl;
 
-    if (_ID.length() != 8)
-    {
-        std::cerr << "Ma sinh vien phai co dung 8 ky tu" << std::endl;
-        return false;
-    }
-
-    if (_ID.substr(0, 2) != "SV")
-    {
-        std::cerr << "Ma sinh vien phai bat dau bang SV" << std::endl;
-        return false;
-    }
-
-    if (convertStringToNumber(_ID.substr(2)) < 1 || convertStringToNumber(_ID.substr(2)) > 999999)
-    {
-        std::cerr << "So thu tu cua ma sinh vien phai bat dau tu 000001 den 999999" << std::endl;
         return false;
     }
 
     return true;
 }
 
-bool checkNameOfStudents(std::string _name)
+bool checkNameOfStudents(std::string &_name)
 {
-    if (_name.empty())
+    const std::regex pattern(R"(^[A-Za-z ]+$)");
+
+    if (!std::regex_match(_name, pattern))
     {
-        std::cerr << "Ten sinh vien khong duoc de trong" << std::endl;
+        std::cerr << "Ten sinh vien chi chua chu cai va khoang trang" << std::endl;
         return false;
     }
 
-    for (auto &x : _name)
+    return true;
+}
+
+bool checkEmailOfStudents(std::string &_email)
+{
+    const std::regex pattern(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
+
+    if (!std::regex_match(_email, pattern))
     {
-        if (!(isalpha(x) || x == ' '))
-        {
-            std::cerr << "Ten sinh vien chi chua chu cai va khoang trang" << std::endl;
-            return false;
-        }
+        std::cerr << "Email khong dung dinh dang" << std::endl;
+        return false;
     }
 
     return true;
@@ -62,7 +44,8 @@ bool checkNameOfStudents(std::string _name)
 
 int checkNumberInput(int &number)
 {
-    while(!(std::cin >> number)){
+    while (!(std::cin >> number))
+    {
         std::cerr << "Vui long nhap so nguyen: ";
         std::cin.clear();
         std::cin.ignore(1000, '\n');
@@ -73,7 +56,8 @@ int checkNumberInput(int &number)
 
 float checkNumberInput(float &number)
 {
-    while(!(std::cin >> number)){
+    while (!(std::cin >> number))
+    {
         std::cerr << "Vui long nhap so thuc: ";
         std::cin.clear();
         std::cin.ignore(1000, '\n');

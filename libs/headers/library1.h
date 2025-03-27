@@ -5,7 +5,6 @@
 #include <iostream>
 #include <sstream>
 #include <cctype>
-#include <regex>
 
 bool checkIDOfStudents(std::string &_ID);
 

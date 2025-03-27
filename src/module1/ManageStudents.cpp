@@ -144,7 +144,7 @@ void findStudents(const std::vector<std::unique_ptr<Student>> &students)
         std::cout << "---Tim kiem sinh vien theo ID hoac ten---" << std::endl;
 
         std::cout << "1. Theo ID" << std::endl;
-        std::cout << "2. Theo ten sinh vien" << std::endl;
+        std::cout << "2. Theo ten" << std::endl;
         std::cout << "3. Quay lai" << std::endl;
         std::cout << "Lua chon: ";
 

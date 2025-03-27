@@ -1,8 +1,6 @@
 #include "class1/Student.h"
 #include "library1.h"
 
-#include <vector>
-#include <algorithm>
 #include <functional>
 
 const std::vector<std::string> majors = {"Cong nghe thong tin", "Kinh te", "Ky thuat", "Y hoc", "Luat"};

@@ -263,7 +263,33 @@ void Student::outputInfo() const
     std::cout << "So tin chi: " << this->getCredits() << std::endl;
 }
 
-bool Student::updateGPA(float newGPA)
+bool Student::updateGPA(float &newGPA)
 {
     return this->setGPA(newGPA);
+}
+
+std::string Student::getRank()
+{
+    std::string str = "Hoc luc: ";
+
+    if (this->getGPA() >= 3.6)
+    {
+        return str + "Xuat sac";
+    }
+    else if (this->getGPA() >= 3.2)
+    {
+        return str + "Gioi";
+    }
+    else if (this->getGPA() >= 2.5)
+    {
+        return str + "Kha";
+    }
+    else if (this->getGPA() >= 2.0)
+    {
+        return str + "Trung binh";
+    }
+    else
+    {
+        return str + "Yeu";
+    }
 }

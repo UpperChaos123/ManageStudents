@@ -47,7 +47,8 @@ public:
     bool inputInfo();
     void outputInfo() const;
 
-    bool updateGPA(float newGPA);
+    bool updateGPA(float &newGPA);
+    std::string getRank();
 };
 
 #endif // __STUDENT_H__

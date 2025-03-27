@@ -44,3 +44,4 @@ C++ là một ngôn ngữ ***lập trình cấp trung***, hỗ trợ ***lập tr
     3. Xoá sinh viên theo ID
     4. Tìm kiếm sinh viên theo ID hoặc tên
     5. Cập nhật điểm trung bình của sinh viên
+    6. Sắp xếp danh sách sinh viên

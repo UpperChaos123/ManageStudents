@@ -1,34 +1,49 @@
 #include "module1/ManageStudents.h"
 
-#include <cstddef>
-
-void addStudentsToList(std::vector<std::unique_ptr<Student>> &students)
+void addStudentsToList(std::vector<std::unique_ptr<Student>> &students,
+                       std::unordered_set<std::string> &idSet,
+                       std::unordered_set<std::string> &phoneSet,
+                       std::unordered_set<std::string> &emailSet)
 {
     std::cout << "---Them sinh vien vao danh sach---" << std::endl;
 
     std::unique_ptr<Student> sv = std::make_unique<Student>();
-    bool check = sv->inputInfo();
 
-    if (!check)
+    if (!sv->inputInfo())
     {
         std::cerr << "Khong the them sinh vien vi loi du lieu dau vao" << std::endl;
-    }
-    else
-    {
-        for (auto &x : students)
-        {
-            if (sv->getID() == x->getID())
-            {
-                std::cerr << "Khong the them sinh vien vi trung ID" << std::endl;
-            }
-            else
-            {
-                students.push_back(std::move(sv));
-                std::cout << "Them sinh vien thanh cong" << std::endl;
-            }
-        }
+        std::cout << "\n";
+        return;
     }
 
+    if (idSet.count(sv->getID()))
+    {
+        std::cerr << "Khong the them sinh vien vi trung ID" << std::endl;
+        std::cout << "\n";
+        return;
+    }
+
+    if (phoneSet.count(sv->getPhone()))
+    {
+        std::cerr << "Khong the them sinh vien vi trung so dien thoai" << std::endl;
+        std::cout << "\n";
+        return;
+    }
+
+    if (emailSet.count(sv->getEmail()))
+    {
+        std::cerr << "Khong the them sinh vien vi trung email" << std::endl;
+        std::cout << "\n";
+        return;
+    }
+
+    idSet.insert(sv->getID());
+    phoneSet.insert(sv->getPhone());
+    emailSet.insert(sv->getEmail());
+
+    students.push_back(std::move(sv));
+
+    std::cout << "Them sinh vien thanh cong" << std::endl;
     std::cout << "\n";
 }
 
@@ -129,7 +144,7 @@ void findStudents(const std::vector<std::unique_ptr<Student>> &students)
         std::cout << "---Tim kiem sinh vien theo ID hoac ten---" << std::endl;
 
         std::cout << "1. Theo ID" << std::endl;
-        std::cout << "2. Theo ten" << std::endl;
+        std::cout << "2. Theo ten sinh vien" << std::endl;
         std::cout << "3. Quay lai" << std::endl;
         std::cout << "Lua chon: ";
 
@@ -152,6 +167,7 @@ void findStudents(const std::vector<std::unique_ptr<Student>> &students)
                 std::cout << "Sinh vien co ID la " << students[index]->getID() << " co trong danh sach" << std::endl;
             }
 
+            std::cout << "\n";
             break;
 
         case 2:
@@ -166,6 +182,7 @@ void findStudents(const std::vector<std::unique_ptr<Student>> &students)
                 std::cout << "Sinh vien co ten la " << students[index]->getName() << " co trong danh sach" << std::endl;
             }
 
+            std::cout << "\n";
             break;
 
         case 3:
@@ -173,10 +190,9 @@ void findStudents(const std::vector<std::unique_ptr<Student>> &students)
 
         default:
             std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
+            std::cout << "\n";
         }
     } while (choose != 3);
-
-    std::cout << "\n";
 }
 
 void updateGPAOfStudents(std::vector<std::unique_ptr<Student>> &students)
@@ -226,11 +242,16 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
 
         choose = checkNumberInput(choose);
 
+        std::cout << "\n";
+        std::cin.ignore();
+
         switch (choose)
         {
         case 1:
             do
             {
+                std::cout << "---Sap xep theo ten sinh vien---" << std::endl;
+
                 std::cout << "1. Tu A den Z" << std::endl;
                 std::cout << "2. Tu Z den A" << std::endl;
                 std::cout << "3. Quay lai" << std::endl;
@@ -238,10 +259,13 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
 
                 choose1 = checkNumberInput(choose1);
 
+                std::cout << "\n";
+                std::cin.ignore();
+
                 switch (choose1)
                 {
                 case 1:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> a, std::unique_ptr<Student> b)
+                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
                               {
                         if(a->getName() == b->getName()){
                             return a->getID() < b->getID();
@@ -253,7 +277,7 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
                     break;
 
                 case 2:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> a, std::unique_ptr<Student> b)
+                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
                               {
                         if(a->getName() == b->getName()){
                             return a->getID() < b->getID();
@@ -278,6 +302,8 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
         case 2:
             do
             {
+                std::cout << "---Sap xep theo GPA---" << std::endl;
+
                 std::cout << "1. Tang dan" << std::endl;
                 std::cout << "2. Giam dan" << std::endl;
                 std::cout << "3. Quay lai" << std::endl;
@@ -285,10 +311,13 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
 
                 choose1 = checkNumberInput(choose1);
 
+                std::cout << "\n";
+                std::cin.ignore();
+
                 switch (choose1)
                 {
                 case 1:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> a, std::unique_ptr<Student> b)
+                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
                               {
                         if(a->getGPA() == b->getGPA()){
                             return a->getID() < b->getID();
@@ -300,7 +329,7 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
                     break;
 
                 case 2:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> a, std::unique_ptr<Student> b)
+                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
                               {
                         if(a->getGPA() == b->getGPA()){
                             return a->getID() < b->getID();
@@ -316,7 +345,6 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
 
                 default:
                     std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
-                    std::cout << "\n";
                 }
             } while (choose1 != 3);
 
@@ -326,6 +354,8 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
         case 3:
             do
             {
+                std::cout << "---Sap xep theo ID---" << std::endl;
+
                 std::cout << "1. Tang dan" << std::endl;
                 std::cout << "2. Giam dan" << std::endl;
                 std::cout << "3. Quay lai" << std::endl;
@@ -333,17 +363,20 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
 
                 choose1 = checkNumberInput(choose1);
 
+                std::cout << "\n";
+                std::cin.ignore();
+
                 switch (choose1)
                 {
                 case 1:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> a, std::unique_ptr<Student> b)
+                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
                               { return a->getID() < b->getID(); });
 
                     displayListOfStudents(students);
                     break;
 
                 case 2:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> a, std::unique_ptr<Student> b)
+                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
                               { return a->getID() > b->getID(); });
 
                     displayListOfStudents(students);
@@ -354,12 +387,14 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
 
                 default:
                     std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
-                    std::cout << "\n";
                 }
             } while (choose1 != 3);
 
             std::cout << "\n";
             break;
+
+        case 4:
+            return;
 
         default:
             std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;

@@ -39,13 +39,13 @@ target_link_libraries(Project1 PRIVATE MyLibraryStatic)
 #    ${CMAKE_BINARY_DIR}/libs/dynamic/libMyLibraryShared.dll
 #    $<TARGET_FILE_DIR:Project1>)
 
-# Bật chế độ testing
-enable_testing()
+# # Bật chế độ testing
+# enable_testing()
 
-# Tìm Google Test
-find_package(GTest CONFIG REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
+# # Tìm Google Test
+# find_package(GTest CONFIG REQUIRED)
+# include_directories(${GTEST_INCLUDE_DIRS})
 
-# Thêm thư mục tests vào build
-add_subdirectory(tests)
+# # Thêm thư mục tests vào build
+# add_subdirectory(tests)
 

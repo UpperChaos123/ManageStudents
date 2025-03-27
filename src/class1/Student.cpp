@@ -1,8 +1,6 @@
 #include "class1/Student.h"
 #include "library1.h"
 
-#include <functional>
-
 const std::vector<std::string> majors = {"Cong nghe thong tin", "Kinh te", "Ky thuat", "Y hoc", "Luat"};
 
 Student::Student()
@@ -15,6 +13,8 @@ Student::Student(const std::string &_ID, const std::string &_name, const int &_a
     if (!validateAndSet(_ID, _name, _age, _GPA, _major, _email, _phone, _credits))
     {
         std::cerr << "Loi du lieu dau vao" << std::endl;
+        std::cout << "\n";
+
         return;
     }
 }
@@ -91,6 +91,7 @@ bool Student::setMajor(std::string &_major)
         }
     }
 
+    std::cerr << "Nganh hoc khong nam trong danh sach" << std::endl;
     return false;
 }
 
@@ -187,15 +188,6 @@ bool Student::validateAndSet(const std::string &_ID, const std::string &_name, c
     {
         if (!setter())
         {
-            this->m_ID = "INVALID";
-            this->m_name = "INVALID";
-            this->m_age = -1;
-            this->m_GPA = -1.0;
-            this->m_major = "INVALID";
-            this->m_email = "INVALID";
-            this->m_phone = "INVALID";
-            this->m_credits = -1;
-
             return false;
         }
     }
@@ -218,6 +210,9 @@ bool Student::inputInfo()
 
     std::cout << "Nhap diem trung binh: ";
     float _GPA = checkNumberInput(_GPA);
+
+    std::cout << "\n";
+    std::cin.ignore();
 
     std::cout << "---Cac nganh hoc hien nay---" << std::endl;
 
@@ -255,6 +250,7 @@ void Student::outputInfo() const
     std::cout << "Ten sinh vien: " << this->getName() << std::endl;
     std::cout << "Tuoi: " << this->getAge() << std::endl;
     std::cout << "Diem trung binh: " << this->getGPA() << std::endl;
+    std::cout << "Hoc luc: " << this->getRank() << std::endl;
     std::cout << "Nganh hoc: " << this->getMajor() << std::endl;
     std::cout << "Email: " << this->getEmail() << std::endl;
     std::cout << "So dien thoai: " << this->getPhone() << std::endl;
@@ -266,28 +262,26 @@ bool Student::updateGPA(float &newGPA)
     return this->setGPA(newGPA);
 }
 
-std::string Student::getRank()
+std::string Student::getRank() const
 {
-    std::string str = "Hoc luc: ";
-
     if (this->getGPA() >= 3.6)
     {
-        return str + "Xuat sac";
+        return "Xuat sac";
     }
     else if (this->getGPA() >= 3.2)
     {
-        return str + "Gioi";
+        return "Gioi";
     }
     else if (this->getGPA() >= 2.5)
     {
-        return str + "Kha";
+        return "Kha";
     }
     else if (this->getGPA() >= 2.0)
     {
-        return str + "Trung binh";
+        return "Trung binh";
     }
     else
     {
-        return str + "Yeu";
+        return "Yeu";
     }
 }

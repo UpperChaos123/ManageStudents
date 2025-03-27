@@ -6,6 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <functional>
 
 class Student
 {
@@ -50,7 +51,7 @@ public:
     void outputInfo() const;
 
     bool updateGPA(float &newGPA);
-    std::string getRank();
+    std::string getRank() const;
 };
 
 #endif // __STUDENT_H__

@@ -5,8 +5,13 @@
 #include "library1.h"
 
 #include <memory>
+#include <unordered_set>
+#include <cstddef>
 
-void addStudentsToList(std::vector<std::unique_ptr<Student>> &students);
+void addStudentsToList(std::vector<std::unique_ptr<Student>> &students,
+                       std::unordered_set<std::string> &idSet,
+                       std::unordered_set<std::string> &phoneSet,
+                       std::unordered_set<std::string> &emailSet);
 
 void displayListOfStudents(const std::vector<std::unique_ptr<Student>> &students);
 

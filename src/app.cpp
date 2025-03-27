@@ -5,6 +5,9 @@ void runApp()
 {
     int choose;
     std::vector<std::unique_ptr<Student>> students;
+    std::unordered_set<std::string> idSet;
+    std::unordered_set<std::string> phoneSet;
+    std::unordered_set<std::string> emailSet;
 
     do
     {
@@ -15,7 +18,8 @@ void runApp()
         std::cout << "3. Xoa sinh vien theo ID" << std::endl;
         std::cout << "4. Tim kiem sinh vien theo ID hoac ten" << std::endl;
         std::cout << "5. Cap nhat diem trung binh cua sinh vien" << std::endl;
-        std::cout << "6. Ket thuc chuong trinh" << std::endl;
+        std::cout << "6. Sap xep danh sach sinh vien" << std::endl;
+        std::cout << "7. Ket thuc chuong trinh" << std::endl;
         std::cout << "Lua chon: ";
 
         choose = checkNumberInput(choose);
@@ -26,11 +30,11 @@ void runApp()
         switch (choose)
         {
         case 1:
-            createListOfStudents(students);
+            addStudentsToList(students, idSet, phoneSet, emailSet);
             break;
 
         case 2:
-            displayListsOfStudents(students);
+            displayListOfStudents(students);
             break;
 
         case 3:
@@ -46,10 +50,15 @@ void runApp()
             break;
 
         case 6:
+            sortListOfStudents(students);
+            break;
+
+        case 7:
             return;
 
         default:
             std::cerr << "Khong co lua chon vua nhap. Yeu cau nhap lai" << std::endl;
+            std::cout << "\n";
         }
-    } while (choose != 6);
+    } while (choose != 7);
 }

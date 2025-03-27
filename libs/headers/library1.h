@@ -4,12 +4,14 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <cctype>
+#include <regex>
 
-float convertStringToNumber(std::string str);
+bool checkIDOfStudents(std::string &_ID);
 
-bool checkIDOfStudents(std::string _ID);
+bool checkNameOfStudents(std::string &_name);
 
-bool checkNameOfStudents(std::string _name);
+bool checkEmailOfStudents(std::string &_email);
 
 int checkNumberInput(int &number);
 

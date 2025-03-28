@@ -13,6 +13,7 @@ void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
     {
         std::cerr << "Khong the them sinh vien vi loi du lieu dau vao" << std::endl;
         std::cout << "\n";
+
         return;
     }
 
@@ -20,6 +21,7 @@ void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
     {
         std::cerr << "Khong the them sinh vien vi trung ID" << std::endl;
         std::cout << "\n";
+
         return;
     }
 
@@ -27,6 +29,7 @@ void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
     {
         std::cerr << "Khong the them sinh vien vi trung so dien thoai" << std::endl;
         std::cout << "\n";
+
         return;
     }
 
@@ -34,6 +37,7 @@ void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
     {
         std::cerr << "Khong the them sinh vien vi trung email" << std::endl;
         std::cout << "\n";
+
         return;
     }
 
@@ -58,7 +62,7 @@ void displayListOfStudents(const std::vector<std::shared_ptr<Student>> &students
     {
         std::cout << "---Danh sach sinh vien---" << std::endl;
 
-        for (auto &x : students)
+        for (const auto &x : students)
         {
             x->outputInfo();
             std::cout << "\n";
@@ -78,7 +82,15 @@ void findStudentsByID(const std::vector<std::shared_ptr<Student>> &students)
 
     std::vector<std::weak_ptr<Student>> id_students;
 
-    for (auto &x : students)
+    if (ID == "")
+    {
+        std::cerr << "Khong co ket qua phu hop" << std::endl;
+        std::cout << "\n";
+
+        return;
+    }
+
+    for (const auto &x : students)
     {
         if (x->getID().find(ID) != std::string::npos)
         {
@@ -100,9 +112,9 @@ void findStudentsByID(const std::vector<std::shared_ptr<Student>> &students)
 
             return ptra && ptrb && ptra->getID() < ptrb->getID(); });
 
-        for (auto &x : id_students)
+        for (const auto &x : id_students)
         {
-            if (auto ptr = x.lock())
+            if (const auto ptr = x.lock())
             {
                 ptr->outputInfo();
                 std::cout << "\n";
@@ -164,9 +176,9 @@ void findStudentsByName(const std::vector<std::shared_ptr<Student>> &students)
 
     std::vector<std::weak_ptr<Student>> name_students;
 
-    for (auto &x : students)
+    for (const auto &x : students)
     {
-        if (x->getID().find(name) != std::string::npos)
+        if (x->getName().find(name) != std::string::npos)
         {
             name_students.push_back(x);
         }
@@ -186,9 +198,9 @@ void findStudentsByName(const std::vector<std::shared_ptr<Student>> &students)
 
             return ptra && ptrb && ((ptra->getName() == ptrb->getName()) ? (ptra->getID() < ptrb->getID()) : (ptra->getName() < ptrb->getName())); });
 
-        for (auto &x : name_students)
+        for (const auto &x : name_students)
         {
-            if (auto ptr = x.lock())
+            if (const auto ptr = x.lock())
             {
                 ptr->outputInfo();
                 std::cout << "\n";
@@ -234,9 +246,9 @@ void findStudentsByGPA(const std::vector<std::shared_ptr<Student>> &students)
 
             return ptra && ptrb && ((ptra->getGPA() == ptrb->getGPA()) ? (ptra->getID() < ptrb->getID()) : (ptra->getGPA() < ptrb->getGPA())); });
 
-        for (auto &x : gpa_students)
+        for (const auto &x : gpa_students)
         {
-            if (auto ptr = x.lock())
+            if (const auto ptr = x.lock())
             {
                 ptr->outputInfo();
                 std::cout << "\n";
@@ -255,7 +267,7 @@ void findStudents(const std::vector<std::shared_ptr<Student>> &students)
 
         std::cout << "1. Theo ID" << std::endl;
         std::cout << "2. Theo ten sinh vien" << std::endl;
-        std::cout << "3. Theo khoang GPA";
+        std::cout << "3. Theo khoang GPA" << std::endl;
         std::cout << "4. Quay lai" << std::endl;
         std::cout << "Lua chon: ";
 
@@ -290,7 +302,7 @@ void findStudents(const std::vector<std::shared_ptr<Student>> &students)
 
 void updateGPAOfStudents(std::vector<std::shared_ptr<Student>> &students)
 {
-    std::cout << "---Cap nhat diem trung binh theo ID---" << std::endl;
+    std::cout << "---Cap nhat diem trung binh cua sinh vien---" << std::endl;
 
     std::cout << "Nhap ID: ";
     std::string ID;
@@ -407,6 +419,7 @@ void sortListOfStudents(std::vector<std::shared_ptr<Student>> &students)
 
                 default:
                     std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
+                    std::cout << "\n";
                 }
             } while (choose1 != 3);
 
@@ -459,6 +472,7 @@ void sortListOfStudents(std::vector<std::shared_ptr<Student>> &students)
 
                 default:
                     std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
+                    std::cout << "\n";
                 }
             } while (choose1 != 3);
 
@@ -501,6 +515,7 @@ void sortListOfStudents(std::vector<std::shared_ptr<Student>> &students)
 
                 default:
                     std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
+                    std::cout << "\n";
                 }
             } while (choose1 != 3);
 

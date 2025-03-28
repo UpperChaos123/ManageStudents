@@ -48,4 +48,3 @@ target_link_libraries(Project1 PRIVATE MyLibraryStatic)
 
 # # Thêm thư mục tests vào build
 # add_subdirectory(tests)
-

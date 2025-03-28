@@ -4,7 +4,7 @@
 void runApp()
 {
     int choose;
-    std::vector<std::unique_ptr<Student>> students;
+    std::vector<std::shared_ptr<Student>> students;
     std::unordered_set<std::string> idSet;
     std::unordered_set<std::string> phoneSet;
     std::unordered_set<std::string> emailSet;
@@ -16,7 +16,7 @@ void runApp()
         std::cout << "1. Them sinh vien vao danh sach" << std::endl;
         std::cout << "2. Hien thi danh sach sinh vien" << std::endl;
         std::cout << "3. Xoa sinh vien theo ID" << std::endl;
-        std::cout << "4. Tim kiem sinh vien theo ID hoac ten" << std::endl;
+        std::cout << "4. Tim kiem sinh vien" << std::endl;
         std::cout << "5. Cap nhat diem trung binh cua sinh vien" << std::endl;
         std::cout << "6. Sap xep danh sach sinh vien" << std::endl;
         std::cout << "7. Ket thuc chuong trinh" << std::endl;

@@ -8,23 +8,25 @@
 #include <unordered_set>
 #include <cstddef>
 
-void addStudentsToList(std::vector<std::unique_ptr<Student>> &students,
+void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
                        std::unordered_set<std::string> &idSet,
                        std::unordered_set<std::string> &phoneSet,
                        std::unordered_set<std::string> &emailSet);
 
-void displayListOfStudents(const std::vector<std::unique_ptr<Student>> &students);
+void displayListOfStudents(const std::vector<std::shared_ptr<Student>> &students);
 
-int findStudentsByID(const std::vector<std::unique_ptr<Student>> &students);
+void findStudentsByID(const std::vector<std::shared_ptr<Student>> &students);
 
-void removeStudentsByID(std::vector<std::unique_ptr<Student>> &students);
+void removeStudentsByID(std::vector<std::shared_ptr<Student>> &students);
 
-int findStudentsByName(const std::vector<std::unique_ptr<Student>> &students);
+void findStudentsByName(const std::vector<std::shared_ptr<Student>> &students);
 
-void findStudents(const std::vector<std::unique_ptr<Student>> &students);
+void findStudentsByGPA(const std::vector<std::shared_ptr<Student>> &students);
 
-void updateGPAOfStudents(std::vector<std::unique_ptr<Student>> &students);
+void findStudents(const std::vector<std::shared_ptr<Student>> &students);
 
-void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students);
+void updateGPAOfStudents(std::vector<std::shared_ptr<Student>> &students);
+
+void sortListOfStudents(std::vector<std::shared_ptr<Student>> &students);
 
 #endif // __MANAGESTUDENTS_H__

@@ -1,13 +1,13 @@
 #include "module1/ManageStudents.h"
 
-void addStudentsToList(std::vector<std::unique_ptr<Student>> &students,
+void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
                        std::unordered_set<std::string> &idSet,
                        std::unordered_set<std::string> &phoneSet,
                        std::unordered_set<std::string> &emailSet)
 {
     std::cout << "---Them sinh vien vao danh sach---" << std::endl;
 
-    std::unique_ptr<Student> sv = std::make_unique<Student>();
+    std::shared_ptr<Student> sv = std::make_shared<Student>();
 
     if (!sv->inputInfo())
     {
@@ -41,13 +41,13 @@ void addStudentsToList(std::vector<std::unique_ptr<Student>> &students,
     phoneSet.insert(sv->getPhone());
     emailSet.insert(sv->getEmail());
 
-    students.push_back(std::move(sv));
+    students.push_back(sv);
 
     std::cout << "Them sinh vien thanh cong" << std::endl;
     std::cout << "\n";
 }
 
-void displayListOfStudents(const std::vector<std::unique_ptr<Student>> &students)
+void displayListOfStudents(const std::vector<std::shared_ptr<Student>> &students)
 {
     if (students.empty())
     {
@@ -66,7 +66,7 @@ void displayListOfStudents(const std::vector<std::unique_ptr<Student>> &students
     }
 }
 
-int findStudentsByID(const std::vector<std::unique_ptr<Student>> &students)
+void findStudentsByID(const std::vector<std::shared_ptr<Student>> &students)
 {
     std::cout << "---Tim kiem sinh vien theo ID---" << std::endl;
 
@@ -76,40 +76,83 @@ int findStudentsByID(const std::vector<std::unique_ptr<Student>> &students)
 
     std::cout << "\n";
 
-    if (!checkIDOfStudents(ID))
-    {
-        return -1;
-    }
+    std::vector<std::weak_ptr<Student>> id_students;
 
-    for (size_t i = 0; i < students.size(); ++i)
+    for (auto &x : students)
     {
-        if (students[i]->getID() == ID)
+        if (x->getID().find(ID) != std::string::npos)
         {
-            return i;
+            id_students.push_back(x);
         }
     }
 
-    return -1;
-}
-
-void removeStudentsByID(std::vector<std::unique_ptr<Student>> &students)
-{
-    int index = findStudentsByID(students);
-
-    if (index == -1)
+    if (id_students.empty())
     {
-        std::cerr << "ID khong hop le hoac sinh vien khong co trong danh sach" << std::endl;
+        std::cerr << "Khong co ket qua phu hop" << std::endl;
+        std::cout << "\n";
     }
     else
     {
-        students.erase(students.begin() + index);
-        std::cout << "Xoa sinh vien thanh cong" << std::endl;
+        std::sort(id_students.begin(), id_students.end(), [](std::weak_ptr<Student> &a, std::weak_ptr<Student> &b)
+                  {
+            auto ptra = a.lock();
+            auto ptrb = b.lock();
+
+            return ptra && ptrb && ptra->getID() < ptrb->getID(); });
+
+        for (auto &x : id_students)
+        {
+            if (auto ptr = x.lock())
+            {
+                ptr->outputInfo();
+                std::cout << "\n";
+            }
+        }
+    }
+}
+
+void removeStudentsByID(std::vector<std::shared_ptr<Student>> &students)
+{
+    std::cout << "---Xoa sinh vien theo ID---" << std::endl;
+
+    std::cout << "Nhap ID: ";
+    std::string ID;
+    std::getline(std::cin, ID);
+
+    std::cout << "\n";
+
+    if (!checkIDOfStudents(ID))
+    {
+        std::cerr << "ID khong hop le" << std::endl;
+    }
+    else
+    {
+        int index = -1;
+
+        for (size_t i = 0; i < students.size(); ++i)
+        {
+            if (students[i]->getID() == ID)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1)
+        {
+            std::cerr << "Khong co sinh vien trong danh sach" << std::endl;
+        }
+        else
+        {
+            students.erase(students.begin() + index);
+            std::cout << "Xoa sinh vien thanh cong" << std::endl;
+        }
     }
 
     std::cout << "\n";
 }
 
-int findStudentsByName(const std::vector<std::unique_ptr<Student>> &students)
+void findStudentsByName(const std::vector<std::shared_ptr<Student>> &students)
 {
     std::cout << "---Tim kiem sinh vien theo ten---" << std::endl;
 
@@ -119,33 +162,101 @@ int findStudentsByName(const std::vector<std::unique_ptr<Student>> &students)
 
     std::cout << "\n";
 
-    if (!checkNameOfStudents(name))
-    {
-        return -1;
-    }
+    std::vector<std::weak_ptr<Student>> name_students;
 
-    for (size_t i = 0; i < students.size(); ++i)
+    for (auto &x : students)
     {
-        if (students[i]->getName() == name)
+        if (x->getID().find(name) != std::string::npos)
         {
-            return i;
+            name_students.push_back(x);
         }
     }
 
-    return -1;
+    if (name_students.empty())
+    {
+        std::cerr << "Khong co ket qua phu hop" << std::endl;
+        std::cout << "\n";
+    }
+    else
+    {
+        std::sort(name_students.begin(), name_students.end(), [](std::weak_ptr<Student> &a, std::weak_ptr<Student> &b)
+                  {
+            auto ptra = a.lock();
+            auto ptrb = b.lock();
+
+            return ptra && ptrb && ((ptra->getName() == ptrb->getName()) ? (ptra->getID() < ptrb->getID()) : (ptra->getName() < ptrb->getName())); });
+
+        for (auto &x : name_students)
+        {
+            if (auto ptr = x.lock())
+            {
+                ptr->outputInfo();
+                std::cout << "\n";
+            }
+        }
+    }
 }
 
-void findStudents(const std::vector<std::unique_ptr<Student>> &students)
+void findStudentsByGPA(const std::vector<std::shared_ptr<Student>> &students)
 {
-    int choose, index = -1;
+    std::cout << "---Tim kiem sinh vien theo khoang GPA---" << std::endl;
+
+    std::cout << "GPA thap nhat: ";
+    float min = checkNumberInput(min);
+
+    std::cout << "GPA cao nhat: ";
+    float max = checkNumberInput(max);
+
+    std::cout << "\n";
+    std::cin.ignore();
+
+    std::vector<std::weak_ptr<Student>> gpa_students;
+
+    for (auto &x : students)
+    {
+        if (x->getGPA() >= min && x->getGPA() <= max)
+        {
+            gpa_students.push_back(x);
+        }
+    }
+
+    if (gpa_students.empty())
+    {
+        std::cerr << "Khong co ket qua phu hop" << std::endl;
+        std::cout << "\n";
+    }
+    else
+    {
+        std::sort(gpa_students.begin(), gpa_students.end(), [](std::weak_ptr<Student> &a, std::weak_ptr<Student> &b)
+                  {
+            auto ptra = a.lock();
+            auto ptrb = b.lock();
+
+            return ptra && ptrb && ((ptra->getGPA() == ptrb->getGPA()) ? (ptra->getID() < ptrb->getID()) : (ptra->getGPA() < ptrb->getGPA())); });
+
+        for (auto &x : gpa_students)
+        {
+            if (auto ptr = x.lock())
+            {
+                ptr->outputInfo();
+                std::cout << "\n";
+            }
+        }
+    }
+}
+
+void findStudents(const std::vector<std::shared_ptr<Student>> &students)
+{
+    int choose;
 
     do
     {
-        std::cout << "---Tim kiem sinh vien theo ID hoac ten---" << std::endl;
+        std::cout << "---Tim kiem sinh vien---" << std::endl;
 
         std::cout << "1. Theo ID" << std::endl;
-        std::cout << "2. Theo ten" << std::endl;
-        std::cout << "3. Quay lai" << std::endl;
+        std::cout << "2. Theo ten sinh vien" << std::endl;
+        std::cout << "3. Theo khoang GPA";
+        std::cout << "4. Quay lai" << std::endl;
         std::cout << "Lua chon: ";
 
         choose = checkNumberInput(choose);
@@ -156,77 +267,80 @@ void findStudents(const std::vector<std::unique_ptr<Student>> &students)
         switch (choose)
         {
         case 1:
-            index = findStudentsByID(students);
-
-            if (index == -1)
-            {
-                std::cerr << "ID khong hop le hoac sinh vien khong co trong danh sach" << std::endl;
-            }
-            else
-            {
-                std::cout << "Sinh vien co ID la " << students[index]->getID() << " co trong danh sach" << std::endl;
-            }
-
-            std::cout << "\n";
+            findStudentsByID(students);
             break;
 
         case 2:
-            index = findStudentsByName(students);
-
-            if (index == -1)
-            {
-                std::cerr << "Ten sinh vien khong hop le hoac khong co sinh vien trong danh sach" << std::endl;
-            }
-            else
-            {
-                std::cout << "Sinh vien co ten la " << students[index]->getName() << " co trong danh sach" << std::endl;
-            }
-
-            std::cout << "\n";
+            findStudentsByName(students);
             break;
 
         case 3:
+            findStudentsByGPA(students);
+            break;
+
+        case 4:
             return;
 
         default:
             std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
             std::cout << "\n";
         }
-    } while (choose != 3);
+    } while (choose != 4);
 }
 
-void updateGPAOfStudents(std::vector<std::unique_ptr<Student>> &students)
+void updateGPAOfStudents(std::vector<std::shared_ptr<Student>> &students)
 {
-    int index = findStudentsByID(students);
+    std::cout << "---Cap nhat diem trung binh theo ID---" << std::endl;
 
-    if (index == -1)
+    std::cout << "Nhap ID: ";
+    std::string ID;
+    std::getline(std::cin, ID);
+
+    std::cout << "\n";
+
+    if (!checkIDOfStudents(ID))
     {
-        std::cerr << "ID khong hop le hoac sinh vien khong co trong danh sach" << std::endl;
+        std::cerr << "ID khong hop le" << std::endl;
     }
     else
     {
-        float newGPA;
-        std::cout << "Nhap diem trung binh moi: ";
+        int index = -1;
 
-        newGPA = checkNumberInput(newGPA);
-
-        std::cout << "\n";
-
-        bool check = students[index]->updateGPA(newGPA);
-        if (!check)
+        for (size_t i = 0; i < students.size(); ++i)
         {
-            std::cerr << "Cap nhat diem that bai" << std::endl;
+            if (students[i]->getID() == ID)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1)
+        {
+            std::cerr << "Khong co sinh vien trong danh sach" << std::endl;
         }
         else
         {
-            std::cout << "Cap nhat diem thanh cong" << std::endl;
+            std::cout << "Nhap diem moi: ";
+            float newGPA = checkNumberInput(newGPA);
+
+            bool check = students[index]->updateGPA(newGPA);
+
+            if (!check)
+            {
+                std::cerr << "Cap nhat diem that bai" << std::endl;
+            }
+            else
+            {
+                std::cout << "Cap nhat diem thanh cong" << std::endl;
+            }
         }
     }
 
     std::cout << "\n";
 }
 
-void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
+void sortListOfStudents(std::vector<std::shared_ptr<Student>> &students)
 {
     int choose, choose1;
 
@@ -265,7 +379,7 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
                 switch (choose1)
                 {
                 case 1:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
+                    std::sort(students.begin(), students.end(), [](std::shared_ptr<Student> &a, std::shared_ptr<Student> &b)
                               {
                         if(a->getName() == b->getName()){
                             return a->getID() < b->getID();
@@ -277,7 +391,7 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
                     break;
 
                 case 2:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
+                    std::sort(students.begin(), students.end(), [](std::shared_ptr<Student> &a, std::shared_ptr<Student> &b)
                               {
                         if(a->getName() == b->getName()){
                             return a->getID() < b->getID();
@@ -317,7 +431,7 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
                 switch (choose1)
                 {
                 case 1:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
+                    std::sort(students.begin(), students.end(), [](std::shared_ptr<Student> &a, std::shared_ptr<Student> &b)
                               {
                         if(a->getGPA() == b->getGPA()){
                             return a->getID() < b->getID();
@@ -329,7 +443,7 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
                     break;
 
                 case 2:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
+                    std::sort(students.begin(), students.end(), [](std::shared_ptr<Student> &a, std::shared_ptr<Student> &b)
                               {
                         if(a->getGPA() == b->getGPA()){
                             return a->getID() < b->getID();
@@ -369,14 +483,14 @@ void sortListOfStudents(std::vector<std::unique_ptr<Student>> &students)
                 switch (choose1)
                 {
                 case 1:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
+                    std::sort(students.begin(), students.end(), [](std::shared_ptr<Student> &a, std::shared_ptr<Student> &b)
                               { return a->getID() < b->getID(); });
 
                     displayListOfStudents(students);
                     break;
 
                 case 2:
-                    std::sort(students.begin(), students.end(), [](std::unique_ptr<Student> &a, std::unique_ptr<Student> &b)
+                    std::sort(students.begin(), students.end(), [](std::shared_ptr<Student> &a, std::shared_ptr<Student> &b)
                               { return a->getID() > b->getID(); });
 
                     displayListOfStudents(students);

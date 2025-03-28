@@ -1,6 +1,8 @@
 #include "library1.h"
 
-bool checkIDOfStudents(std::string &_ID)
+#include <regex>
+
+bool checkIDOfStudents(const std::string &_ID)
 {
     const std::regex pattern(R"(^SV[0-9]{6}$)");
 
@@ -16,7 +18,7 @@ bool checkIDOfStudents(std::string &_ID)
     return true;
 }
 
-bool checkNameOfStudents(std::string &_name)
+bool checkNameOfStudents(const std::string &_name)
 {
     const std::regex pattern(R"(^[A-Za-z ]+$)");
 
@@ -29,7 +31,7 @@ bool checkNameOfStudents(std::string &_name)
     return true;
 }
 
-bool checkEmailOfStudents(std::string &_email)
+bool checkEmailOfStudents(const std::string &_email)
 {
     const std::regex pattern(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
 

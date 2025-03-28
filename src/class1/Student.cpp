@@ -1,6 +1,9 @@
 #include "class1/Student.h"
 #include "library1.h"
 
+#include <algorithm>
+#include <functional>
+
 const std::vector<std::string> majors = {"Cong nghe thong tin", "Kinh te", "Ky thuat", "Y hoc", "Luat"};
 
 Student::Student()
@@ -82,7 +85,7 @@ bool Student::setGPA(float &_GPA)
 
 bool Student::setMajor(std::string &_major)
 {
-    for (auto &x : majors)
+    for (const auto &x : majors)
     {
         if (_major == x)
         {
@@ -217,7 +220,7 @@ bool Student::inputInfo()
     std::cout << "---Cac nganh hoc hien nay---" << std::endl;
 
     int i = 0;
-    for (auto &x : majors)
+    for (const auto &x : majors)
     {
         ++i;
         std::cout << std::to_string(i) + ". " + x << std::endl;

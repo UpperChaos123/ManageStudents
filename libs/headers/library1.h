@@ -5,13 +5,12 @@
 #include <iostream>
 #include <sstream>
 #include <cctype>
-#include <regex>
 
-bool checkIDOfStudents(std::string &_ID);
+bool checkIDOfStudents(const std::string &_ID);
 
-bool checkNameOfStudents(std::string &_name);
+bool checkNameOfStudents(const std::string &_name);
 
-bool checkEmailOfStudents(std::string &_email);
+bool checkEmailOfStudents(const std::string &_email);
 
 int checkNumberInput(int &number);
 

@@ -4,7 +4,7 @@
 void runApp()
 {
     int choose;
-    std::vector<std::shared_ptr<Student>> students;
+    std::vector<std::shared_ptr<Student>> students = loadFromFile();
     std::unordered_set<std::string> idSet;
     std::unordered_set<std::string> phoneSet;
     std::unordered_set<std::string> emailSet;

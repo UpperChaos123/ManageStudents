@@ -45,3 +45,5 @@ C++ là một ngôn ngữ ***lập trình cấp trung***, hỗ trợ ***lập tr
     4. Tìm kiếm sinh viên
     5. Cập nhật điểm trung bình của sinh viên
     6. Sắp xếp danh sách sinh viên
+
+3. Lưu danh sách sinh viên vào file, khi chạy chương trình thì đọc dữ liệu từ file

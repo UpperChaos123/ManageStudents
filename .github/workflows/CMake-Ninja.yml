@@ -21,22 +21,23 @@ jobs:
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
+          msystem: UCRT64
           install: >
-            mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-ninja
-            mingw-w64-x86_64-gtest
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-gtest
           update: true
 
       # Cập nhật PATH cho Ninja
       - name: Update PATH for Ninja
-        run: echo "C:/msys64/mingw64/bin" >> $GITHUB_PATH
+        run: echo "C:/msys64/ucrt64/bin" >> $GITHUB_PATH
 
       # Kiểm tra các công cụ đã được cài đặt
       - name: Verify installed tools
         run: |
           gcc --version
+          g++ --version
           cmake --version
           ninja --version
         shell: msys2 {0}
@@ -51,7 +52,7 @@ jobs:
           cmake -S . -B build -G Ninja \
             -DCMAKE_C_COMPILER=gcc \
             -DCMAKE_CXX_COMPILER=g++ \
-            -DGTest_DIR=C:/msys64/mingw64
+            -DGTest_DIR=C:/msys64/ucrt64
         shell: msys2 {0}
 
       # Build dự án với Ninja

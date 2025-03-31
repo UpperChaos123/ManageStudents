@@ -8,6 +8,7 @@
 #include <unordered_set>
 #include <cstddef>
 #include <fstream>
+#include <exception>
 
 extern const std::string filename;
 

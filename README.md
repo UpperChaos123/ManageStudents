@@ -26,12 +26,12 @@ C++ là một ngôn ngữ ***lập trình cấp trung***, hỗ trợ ***lập tr
     2. Công cụ CMake (version 3.31.6)
     3. Hệ thống build Ninja (version 1.12.1)
     4. Trình gỡ lỗi GDB (version 16.2)
-    5. Kiểm thử bằng Google Test (version 1.16.0-1)
+    <!-- 5. Kiểm thử bằng Google Test (version 1.16.0-1) -->
 
 2. Các thư viện sử dụng
     1. MyLibraryStatic (thư viện tĩnh)
     2. MyLibraryShared (thư viện động)
-    3. GTest::gtest, GTest::gtest_main (thư viện của Google Test)
+    <!-- 3. GTest::gtest, GTest::gtest_main (thư viện của Google Test) -->
 
 ## Chương 3: Khái quát về chương trình
 

@@ -7,6 +7,10 @@
 #include <memory>
 #include <unordered_set>
 #include <cstddef>
+#include <fstream>
+#include <exception>
+
+extern const std::string filename;
 
 void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
                        std::unordered_set<std::string> &idSet,
@@ -28,5 +32,9 @@ void findStudents(const std::vector<std::shared_ptr<Student>> &students);
 void updateGPAOfStudents(std::vector<std::shared_ptr<Student>> &students);
 
 void sortListOfStudents(std::vector<std::shared_ptr<Student>> &students);
+
+void saveToFile(std::vector<std::shared_ptr<Student>> &students);
+
+std::vector<std::shared_ptr<Student>> loadFromFile();
 
 #endif // __MANAGESTUDENTS_H__

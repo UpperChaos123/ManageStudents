@@ -4,7 +4,7 @@
 void runApp()
 {
     int choose;
-    std::vector<std::shared_ptr<Student>> students;
+    std::vector<std::shared_ptr<Student>> students = loadFromFile();
     std::unordered_set<std::string> idSet;
     std::unordered_set<std::string> phoneSet;
     std::unordered_set<std::string> emailSet;
@@ -54,11 +54,13 @@ void runApp()
             break;
 
         case 7:
-            return;
+            break;
 
         default:
             std::cerr << "Khong co lua chon vua nhap. Yeu cau nhap lai" << std::endl;
-            std::cout << "\n";
         }
     } while (choose != 7);
+
+    saveToFile(students);
+    std::cout << "\n";
 }

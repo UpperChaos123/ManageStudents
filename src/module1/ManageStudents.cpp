@@ -1,5 +1,90 @@
 #include "module1/ManageStudents.h"
 
+const std::string filename = "C:\\Cpp_Program\\Project1\\output.csv";
+
+void saveToFile(std::vector<std::shared_ptr<Student>> &students)
+{
+    try
+    {
+        std::ofstream file(filename);
+        if (!file.is_open())
+        {
+            throw std::runtime_error("Khong the mo file!");
+        }
+
+        for (const auto &x : students)
+        {
+            file << x->getID() << "," << x->getName() << "," << x->getAge() << ","
+                 << x->getGPA() << "," << x->getMajor() << "," << x->getEmail() << ","
+                 << x->getPhone() << "," << x->getCredits() << std::endl;
+        }
+
+        std::cout << "Luu file thanh cong!" << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Loi: " << e.what() << std::endl;
+    }
+
+    std::cout << "\n";
+}
+
+std::vector<std::shared_ptr<Student>> loadFromFile()
+{
+    std::vector<std::shared_ptr<Student>> students;
+    std::ifstream file(filename);
+
+    if (!file.is_open())
+    {
+        std::cerr << "Khong tim thay file. Dang tao file moi..." << std::endl;
+        std::ofstream newFile(filename);
+        newFile.close();
+        std::cout << "\n";
+
+        return students;
+    }
+
+    std::string line;
+    while (std::getline(file, line))
+    {
+        std::stringstream ss(line);
+        std::string id, name, major, email, phone;
+        int age, credits;
+        float gpa;
+
+        std::getline(ss, id, ',');
+        std::getline(ss, name, ',');
+        if (!(ss >> age))
+        {
+            std::cerr << "Loi: Khong the doc tuoi trong dong: " << line << std::endl;
+            continue;
+        }
+        ss.ignore();
+        if (!(ss >> gpa))
+        {
+            std::cerr << "Loi: Khong the doc diem trung binh trong dong: " << line << std::endl;
+            continue;
+        }
+        ss.ignore();
+        std::getline(ss, major, ',');
+        std::getline(ss, email, ',');
+        std::getline(ss, phone, ',');
+        if (!(ss >> credits))
+        {
+            std::cerr << "Loi: Khong the doc so tin chi trong dong: " << line << std::endl;
+            continue;
+        }
+
+        students.push_back(std::make_shared<Student>(id, name, age, gpa, major, email, phone, credits));
+    }
+
+    file.close();
+    std::cout << "Doc file thanh cong!" << std::endl;
+
+    std::cout << "\n";
+    return students;
+}
+
 void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
                        std::unordered_set<std::string> &idSet,
                        std::unordered_set<std::string> &phoneSet,
@@ -46,8 +131,9 @@ void addStudentsToList(std::vector<std::shared_ptr<Student>> &students,
     emailSet.insert(sv->getEmail());
 
     students.push_back(sv);
-
     std::cout << "Them sinh vien thanh cong" << std::endl;
+
+    saveToFile(students);
     std::cout << "\n";
 }
 
@@ -161,6 +247,7 @@ void removeStudentsByID(std::vector<std::shared_ptr<Student>> &students)
         }
     }
 
+    saveToFile(students);
     std::cout << "\n";
 }
 
@@ -224,7 +311,7 @@ void findStudentsByGPA(const std::vector<std::shared_ptr<Student>> &students)
 
     std::vector<std::weak_ptr<Student>> gpa_students;
 
-    for (auto &x : students)
+    for (const auto &x : students)
     {
         if (x->getGPA() >= min && x->getGPA() <= max)
         {
@@ -291,13 +378,14 @@ void findStudents(const std::vector<std::shared_ptr<Student>> &students)
             break;
 
         case 4:
-            return;
+            break;
 
         default:
             std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
-            std::cout << "\n";
         }
     } while (choose != 4);
+
+    std::cout << "\n";
 }
 
 void updateGPAOfStudents(std::vector<std::shared_ptr<Student>> &students)
@@ -336,6 +424,9 @@ void updateGPAOfStudents(std::vector<std::shared_ptr<Student>> &students)
             std::cout << "Nhap diem moi: ";
             float newGPA = checkNumberInput(newGPA);
 
+            std::cout << "\n";
+            std::cin.ignore();
+
             bool check = students[index]->updateGPA(newGPA);
 
             if (!check)
@@ -349,6 +440,7 @@ void updateGPAOfStudents(std::vector<std::shared_ptr<Student>> &students)
         }
     }
 
+    saveToFile(students);
     std::cout << "\n";
 }
 
@@ -523,11 +615,12 @@ void sortListOfStudents(std::vector<std::shared_ptr<Student>> &students)
             break;
 
         case 4:
-            return;
+            break;
 
         default:
             std::cerr << "Khong co lua chon vua nhap. Vui long nhap lai" << std::endl;
-            std::cout << "\n";
         }
     } while (choose != 4);
+
+    std::cout << "\n";
 }

@@ -40,6 +40,8 @@ cmake_install.cmake
 *~             # File backup
 *.log          # File log
 
+output.csv
+
 # ===============================
 # 4. Tệp và thư mục của hệ điều hành
 # ===============================
